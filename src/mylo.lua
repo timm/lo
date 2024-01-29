@@ -51,6 +51,8 @@ function SYM:div() return l.entropy(self.has) end
   
 function SYM:small() return 0 end
 
+function SYM:norm(x) return x end
+
 -- Distance
 function SYM:dist(x,y)
   return  (x=="?" and y=="?" and 1) or (x==y and 0 or 1) end
