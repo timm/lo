@@ -200,6 +200,7 @@ function DATA:gate(budget0,budget,some)
   for i=1,budget do
     local best, rest     = self:bestRest(lite, (#lite)^some)  -- assess
     local todo, selected = self:split(best,rest,lite,dark)
+    print("todo: ",todo)
     stats[i] = selected:mid()
     bests[i] = best.rows[1]
     table.insert(lite, table.remove(dark,todo)) end 
@@ -209,7 +210,7 @@ function DATA:gate(budget0,budget,some)
 function DATA:split(best,rest,lite,dark)
   local selected,max,out
   selected = DATA.new{self.cols.names}
-  max = 1E30
+  max = -1E30
   out = 1
   for i,row in pairs(dark) do
     local b,r,tmp
@@ -217,7 +218,6 @@ function DATA:split(best,rest,lite,dark)
     r = row:like(rest, #lite, 2)
     if b>r then selected:add(row) end
     tmp = math.abs(b+r) / math.abs(b-r+1E-300)
-    --print(b,r,tmp) 
     if tmp > max then out,max = i,tmp end end  
   return out,selected end
 
