@@ -27,12 +27,12 @@ local function is(s,    t) t={a=s}; t.__index=t; return t end
 
 -- Create
 local NUM=is"NUM"
-function NUM.new(s, n)
+function NUM.new(  s,n) --new(?str,?num) --> NUM
   return isa(NUM, {txt=s or " ", at=n or 0, n=0, mu=0, m2=0, hi=-1E30, lo=1E30,
               heaven = (s or ""):find"-$" and 0 or 1}) end
 
 -- Update
-function NUM:add(x,     d)
+function NUM:add(x,     d) --add(num) --> num
   if x ~="?" then
     self.n  = self.n+1
     d       = x - self.mu
@@ -42,13 +42,13 @@ function NUM:add(x,     d)
     self.hi = math.max(x, self.hi) end end
 
 -- Query
-function NUM:mid() return self.mu end
+function NUM:mid() --> float
+  return self.mu end 
 
 function NUM:div() return self.n < 2 and 0 or (self.m2/(self.n - 1))^.5 end
 
 function NUM:small() 
   return the.cohen*self:div() end
-
 function NUM:same(other,  pooledSd,n12,correction)
  -- from Cohen, J. 1998. Statistical Power Analysis for the Behavioral Sciences. 2nd ed. 
  -- Hillsdale, NJ: Lawrence Erlbaum Associates.
